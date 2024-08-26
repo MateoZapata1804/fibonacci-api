@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.fibonacci_api.models.FibonacciSequenceModel;
 import co.com.fibonacci_api.models.http.FibonacciFromHourRequest;
 import co.com.fibonacci_api.models.http.RequestResponse;
+import co.com.fibonacci_api.models.http.SendUnsentMailRequest;
 import co.com.fibonacci_api.services.FibonacciService;
 
 @RestController
@@ -24,7 +25,7 @@ public class FibonacciController {
 	
 	@PostMapping("/saveFibonacciSeqFromHour")
 	public RequestResponse getFibonacciSeqFromHour(@RequestBody FibonacciFromHourRequest hour) {
-		return fiboSvc.saveFibonacciSeqFromHour(hour.getHour());
+		return fiboSvc.saveFibonacciSeqFromHour(hour.getHour(), hour.getSendMail());
 	}
 	
 	@GetMapping("/getAllSequences")
@@ -35,6 +36,11 @@ public class FibonacciController {
 	@GetMapping("/getSequenceById")
 	public RequestResponse getSequenceById(Integer id) {
 		return fiboSvc.getSequenceById(id);
+	}
+	
+	@PostMapping("/sendUnsentMail")
+	public RequestResponse sendUnsentMail(@RequestBody SendUnsentMailRequest req) {
+		return fiboSvc.sendUnsentMail(req.getId());
 	}
 	
 }
